@@ -25,3 +25,171 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+## Project Notes
+
+
+# Configuring a New Angular Project with Angular CLI
+
+# 1. Install Angular CLI (if not already installed)
+npm install -g @angular/cli
+
+# 2. Create a New Angular Project
+ng new project-name
+
+# 3. Options During Project Creation
+# - Choose routing (Yes/No) based on project requirements.
+# - Select the preferred stylesheet format (CSS, SCSS, Sass, or Less).
+
+# 4. Navigate to the Project Directory
+cd project-name
+
+# 5. Serve the Application Locally
+ng serve
+# Default URL: http://localhost:4200
+
+# 6. Add Routing to the Project (if not added initially)
+ng generate module app-routing --flat --module=app
+
+# 7. Add a Component
+ng generate component component-name
+
+# 8. Add a Service
+ng generate service service-name
+
+# 9. Add External Dependencies
+# Install required packages using npm or yarn.
+npm install package-name
+# Example: npm install @angular/material
+
+# 10. Configure Proxy for API Calls (Optional)
+# Create a proxy.conf.json file:
+{
+  "/api": {
+    "target": "http://backend-url",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
+# Update angular.json to use the proxy:
+# "serve": {
+#   "options": {
+#     "proxyConfig": "proxy.conf.json"
+#   }
+# }
+# Serve the app using the proxy:
+ng serve
+
+# 11. Configure Environment Files
+# Edit src/environments/environment.ts for development configurations.
+# Edit src/environments/environment.prod.ts for production configurations.
+
+# 12. Build the Project
+ng build --configuration=production
+# Output: /dist/project-name
+
+# 13. Lint the Code
+ng lint
+
+# 14. Run Tests
+ng test        # Run unit tests.
+ng e2e         # Run end-to-end tests.
+
+# 15. Add Strict Mode (Optional for Enhanced TypeScript Configuration)
+ng new project-name --strict
+# Adds stricter TypeScript checks and better code quality.
+
+# 16. Use Angular CLI Help for More Options
+ng help
+
+
+
+# Managing Multiple Projects in a Single Angular Workspace
+
+# 1. Create a Workspace Without an Application
+ng new workspace-name --no-create-application
+
+# 2. Add a New Application
+ng generate application app-name
+# Creates the application in projects/app-name.
+# Applications are independent and can have their own configurations.
+
+# 3. Add a New Library
+ng generate library lib-name
+# Creates the library in projects/lib-name.
+# Libraries can be shared across applications in the workspace.
+
+# 4. Serve an Application
+ng serve --project app-name
+# Serves the specified application.
+
+# 5. Build an Application or Library
+ng build --project project-name
+# Replace project-name with the application or library name.
+
+# 6. Add Routing to an Application
+ng generate module app-routing --project app-name --flat --module=app
+# Adds routing for the specified application.
+
+# 7. Add Components, Services, or Modules
+ng generate component component-name --project app-name
+ng generate service service-name --project app-name
+ng generate module module-name --project app-name
+# Generates components, services, or modules inside the specified application.
+
+# 8. Configuration
+# All projects are configured in the angular.json file under the "projects" section.
+# Each project has its own build, serve, and test configurations.
+
+# 9. Use a Library in an Application
+# Import the library module into the consuming application's module:
+import { LibModule } from 'lib-name';
+@NgModule({
+  imports: [LibModule]
+})
+export class AppModule { }
+
+# 10. Helpful Commands
+# List all projects in the workspace:
+ng config projects
+
+# Run unit tests for a specific project:
+ng test --project project-name
+
+# Lint a specific project:
+ng lint --project project-name
+
+
+# Difference Between Angular Application and Library
+
+# 1. Purpose
+# Application: A runnable Angular project meant to be deployed and accessed by end-users.
+# Library: A reusable set of components, services, or modules meant to be shared across applications.
+
+# 2. Location in Workspace
+# Application: Created in the `projects/app-name` directory.
+# Library: Created in the `projects/lib-name` directory.
+
+# 3. Execution
+# Application: Can be served and run directly using `ng serve`.
+# Library: Cannot be served directly. It needs to be imported and used in an application.
+
+# 4. Build Output
+# Application: Produces a full deployable build in the `/dist/app-name` folder.
+# Library: Produces a packageable build in the `/dist/lib-name` folder, which can be published to npm or used locally.
+
+# 5. Dependencies
+# Application: Can include libraries and other external packages to build the UI or functionality.
+# Library: Should avoid application-specific dependencies and focus on general-purpose reusable logic.
+
+# 6. Usage
+# Application: Designed for end-users (e.g., a web app, admin panel, etc.).
+# Library: Designed for developers to use as part of multiple applications.
+
+# 7. Commands to Generate
+# Application:
+ng generate application app-name
+
+# Library:
+ng generate library lib-name
