@@ -193,3 +193,60 @@ ng generate application app-name
 
 # Library:
 ng generate library lib-name
+
+
+# Step-by-Step Guide to Host an Angular Project on GitHub Pages
+
+# 1. Build the Angular Project for Production
+ng build --output-path=dist --base-href /repository-name/
+# Replace "repository-name" with your GitHub repository name.
+# Example: ng build --output-path=dist --base-href /my-angular-project/
+
+# 2. Install Angular CLI GitHub Pages Tool (if not installed)
+npm install -g angular-cli-ghpages
+
+# Key Details:
+Command: ngh
+# Stands for NG (Angular) and GH (GitHub Pages).
+Purpose: Simplifies the process of building your Angular app and publishing it to a gh-pages branch on GitHub.
+
+# 3. Deploy the Project to GitHub Pages
+ngh --dir=dist
+# This deploys the `dist` folder to the `gh-pages` branch of your GitHub repository.
+
+# 4. Verify Deployment
+# - Go to your GitHub repository.
+# - Navigate to "Settings" > "Pages."
+# - Ensure the source branch is set to `gh-pages`.
+# - Your project should be available at: https://your-username.github.io/repository-name/
+
+# 5. Push Changes to Main Branch (Optional)
+git add .
+git commit -m "Deployed Angular project to GitHub Pages"
+git push origin main
+
+# 6. Re-Deploy After Making Changes
+# - Make updates to your Angular project.
+# - Rebuild the project:
+ng build --output-path=dist --base-href /repository-name/
+# - Re-deploy using Angular CLI GitHub Pages:
+ngh --dir=dist
+
+# Notes:
+# - Ensure your GitHub repository is already initialized and has a remote origin set.
+# - If using a custom domain, configure a `CNAME` file in your GitHub Pages settings.
+
+# if error on deploy
+# error -
+ngh --dir=dist/angular-events
+# index.html could not be copied to 404.html. Proceeding without it.
+# Diagnostic info: ENOENT: no such file or directory, lstat 'D:\web\learning\angular\dist\angular-events\index.html'
+# To fix this issue, explicitly specify the correct directory when running the ngh command:
+ngh --dir=dist/angular-events/browser
+# following command to rebuild your Angular project, ensuring it outputs the expected files:
+ng build angular-events --configuration production --base-href /angular-events/
+# Clean the Cache and Retry: If the issue persists, try cleaning up and reinitializing the GitHub Pages deployment:
+
+ngh --dir=dist/angular-events/browser --no-silent
+## Test the Deployed Application
+https://droidnitish.github.io/angular/angular-event
